@@ -53,7 +53,9 @@ gulp.task('images', function () {
 //To use sass switch to using gulp-sass
 gulp.task('style', function() {
   return gulp.src(SOURCE.css)
-    .pipe(gulp.dest('./build/css'));
+    .pipe(gulp.dest('./build/css'))
+    .pipe(browserSync.stream())
+    .on('error', onError);
 });
 
 gulp.task('watch', function () {
