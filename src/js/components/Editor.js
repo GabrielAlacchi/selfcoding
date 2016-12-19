@@ -27,4 +27,5 @@ export default class Editor extends React.Component {
       </Tabs>
     )
   }
+
 }

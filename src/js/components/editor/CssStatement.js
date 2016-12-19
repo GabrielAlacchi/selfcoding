@@ -22,7 +22,7 @@ export default class CssStatement extends React.Component {
     let matches = line.match(re);
 
     if (!matches) {
-      return (<span>{line}</span>);
+      return (<span>{" ".repeat(indent) + line + '\n'}</span>);
     } else {
       return (<span>{" ".repeat(indent)}
         {matches[1]}
