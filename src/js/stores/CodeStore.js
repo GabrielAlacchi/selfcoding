@@ -26,7 +26,7 @@ class CodeStore extends EventEmitter {
 
       this.currentCssLine += action.payload;
       if (action.payload == '\n') {
-        this.css += this.currentCssLine + '\n';
+        this.css += this.currentCssLine;
         this.currentCssLine = "";
 
         this.emit('new_css_line');

@@ -15,14 +15,14 @@ export default class Editor extends React.Component {
     return (
       <Tabs onSelect={this.handleSelect.bind(this)} selectedIndex={0}>
         <TabList>
-          <Tab>index.html</Tab>
           <Tab>awesome.css</Tab>
+          <Tab>index.html</Tab>
         </TabList>
         <TabPanel>
-          <EditorPane/>
+          <EditorPane css={true}/>
         </TabPanel>
         <TabPanel>
-          <EditorPane/>
+          <EditorPane css={false}/>
         </TabPanel>
       </Tabs>
     )
