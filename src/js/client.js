@@ -10,7 +10,7 @@ let engine = new Engine();
 
 let testCode = `
 .editor-pane {
-  font-family: Monaco, monospace;
+  font-family: Monaco, monospace; // Set font.
   background: #484848;
   margin: 0;
   font-size: 14px;
@@ -44,11 +44,19 @@ let testCode = `
 .selector {
   color: #ffd541;
 }
+
+.selector {
+  color: #ffd541;
+}
+
+.selector {
+  color: #ffd541;
+}
 `;
 
 const app = document.getElementById("app");
 ReactDOM.render(<Editor/>, app);
 
-let anim = new CssAnimation(testCode, 25);
+let anim = new CssAnimation(testCode, 10);
 engine.enqueueAnimation(anim, 100);
 engine.run();

@@ -30,8 +30,12 @@ export default class Engine {
     }
     else {
       this.currentAnimation = this.queue.shift();
-      this.currentAnimation.animation.mount();
-      setTimeout(this.tick, this.currentAnimation.pause);
+
+      if (this.currentAnimation) {
+        this.currentAnimation.animation.mount();
+        setTimeout(this.tick, this.currentAnimation.pause);
+      }
+
     }
 
   }

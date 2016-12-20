@@ -3,6 +3,7 @@
  */
 
 import React from "react";
+import ReactDOM from "react-dom";
 
 import Comment from "./Comment";
 import CssStatement from "./CssStatement";
@@ -55,8 +56,19 @@ export default class EditorPane extends React.Component {
   }
 
   componentWillUnmount() {
-    codeStore.removeListener('new_css_line', this.handleNewCssLine);
-    codeStore.removeListener('css_update', this.handleCssUpdate);
+    if (this.props.css) {
+      codeStore.removeListener('new_css_line', this.handleNewCssLine);
+      codeStore.removeListener('css_update', this.handleCssUpdate);
+    }
+  }
+
+  componentWillUpdate() {
+
+  }
+
+  componentDidUpdate() {
+    let node = ReactDOM.findDOMNode(this);
+    node.scrollTop = node.scrollHeight;
   }
 
   render() {
