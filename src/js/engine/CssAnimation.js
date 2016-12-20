@@ -10,23 +10,6 @@ export default class CssAnimation extends Animation {
     this.code = code;
     this.codeIndex = 0;
     this.pauseChanged = false;
-    this.indent = 0;
-  }
-
-  newLine() {
-    let indent = 0;
-    while (this.codeIndex <= this.code.length && this.code[this.codeIndex] == ' ') {
-      indent++;
-      this.codeIndex++;
-    }
-    if (indent != this.indent) {
-      editorActions.setCssIndent(indent);
-      this.indent = indent;
-    }
-  }
-
-  mount() {
-    editorActions.setCssIndent(0);
   }
 
   tick() {
@@ -38,7 +21,6 @@ export default class CssAnimation extends Animation {
     if (this.pauseChanged) {
       super.setDeltaT(super.getDeltaT() / 3);
       this.pauseChanged = false;
-      this.newLine();
     }
 
     let char = this.code[this.codeIndex++];

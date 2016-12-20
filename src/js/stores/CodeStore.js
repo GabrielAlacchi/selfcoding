@@ -11,7 +11,6 @@ class CodeStore extends EventEmitter {
     super();
     this.css = "";
     this.currentCssLine = "";
-    this.currentCssIndent = 2;
   }
 
   getCssBody() {
@@ -20,10 +19,6 @@ class CodeStore extends EventEmitter {
 
   getCurrentCssLine() {
     return this.currentCssLine;
-  }
-
-  getCurrentCssIndent() {
-    return this.currentCssIndent;
   }
 
   handleAction(action) {
@@ -39,9 +34,6 @@ class CodeStore extends EventEmitter {
         this.emit('css_update');
       }
 
-    } else if (action.type == "NEW_CSS_INDENT") {
-
-      this.currentCssIndent = action.payload;
     }
   }
 

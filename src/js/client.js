@@ -49,6 +49,6 @@ let testCode = `
 const app = document.getElementById("app");
 ReactDOM.render(<Editor/>, app);
 
-let anim = new CssAnimation(testCode, 17);
+let anim = new CssAnimation(testCode, 25);
 engine.enqueueAnimation(anim, 100);
 engine.run();

@@ -26,17 +26,15 @@ export default class EditorPane extends React.Component {
     this.handleNewCssLine = () => {
       console.log('new_css_line');
       let cssLine = codeStore.getCurrentCssLine();
-      let cssIndent = codeStore.getCurrentCssIndent();
       let newState = {...this.state};
-      newState.components.push(<CssStatement indent={cssIndent} line={cssLine} />)
+      newState.components.push(<CssStatement line={cssLine} />)
     };
     this.handleCssUpdate = () => {
       console.log('css_update');
       let cssLine = codeStore.getCurrentCssLine();
-      let cssIndent = codeStore.getCurrentCssIndent();
       let newState = {...this.state};
       newState.components[newState.components.length - 1] =
-        (<CssStatement indent={cssIndent} line={cssLine} />);
+        (<CssStatement line={cssLine} />);
       this.setState(newState);
     };
     codeStore.on('new_css_line', this.handleNewCssLine);

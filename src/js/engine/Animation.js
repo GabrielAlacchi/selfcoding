@@ -1,6 +1,4 @@
 
-import dispatcher from "../actions/dispatcher";
-
 export default class Animation {
 
   constructor(deltaT) {
