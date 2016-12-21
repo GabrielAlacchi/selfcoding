@@ -16,13 +16,9 @@ export default class Editor extends React.Component {
       <Tabs onSelect={this.handleSelect.bind(this)} selectedIndex={0}>
         <TabList>
           <Tab>awesome.css</Tab>
-          <Tab>index.html</Tab>
         </TabList>
         <TabPanel>
-          <EditorPane css={true}/>
-        </TabPanel>
-        <TabPanel>
-          <EditorPane css={false}/>
+          <EditorPane css={true} />
         </TabPanel>
       </Tabs>
     )

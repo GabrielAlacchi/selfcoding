@@ -5,8 +5,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import Comment from "./Comment";
-import CssStatement from "./CssStatement";
+import CssLine from "./CssLine";
+import HtmlLine from "./HtmlLine";
 
 import codeStore from "../../stores/CodeStore";
 
@@ -17,12 +17,10 @@ export default class EditorPane extends React.Component {
 
     if (props && props.css) {
       let css = codeStore.getCssBody() + codeStore.getCurrentCssLine();
-      let cssComponents = css.split('\n').map((line, i) => <CssStatement line={line} />);
+      let cssComponents = css.split('\n').map((line, i) => <CssLine line={line} />);
 
       this.state = {
-        components: [
-          <Comment text={"/*\n Test hi hi \n bro it's time to fucking code \n LOLOLOLOL \n*/"}/>,
-        ].concat(cssComponents)
+        components: cssComponents
       }
     } else {
       this.state = {
@@ -39,14 +37,14 @@ export default class EditorPane extends React.Component {
         console.log('new_css_line');
         let cssLine = codeStore.getCurrentCssLine();
         let newState = {...this.state};
-        newState.components.push(<CssStatement line={cssLine} />)
+        newState.components.push(<CssLine line={cssLine} />)
       };
       this.handleCssUpdate = () => {
         console.log('css_update');
         let cssLine = codeStore.getCurrentCssLine();
         let newState = {...this.state};
         newState.components[newState.components.length - 1] =
-          (<CssStatement line={cssLine} />);
+          (<CssLine line={cssLine} />);
         this.setState(newState);
       };
       codeStore.on('new_css_line', this.handleNewCssLine);

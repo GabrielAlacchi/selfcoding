@@ -1,7 +1,7 @@
 
 import React from "react";
 
-export default class CssStatement extends React.Component {
+export default class CssLine extends React.Component {
 
   getCommentIndex(line) {
     let commentIndex = line.indexOf('/*');
