@@ -3,6 +3,14 @@ import React from "react";
 
 export default class CssStatement extends React.Component {
 
+  getCommentIndex(line) {
+    let commentIndex = line.indexOf('/*');
+    if (commentIndex == -1) {
+      commentIndex = line.indexOf('*');
+    }
+    return commentIndex;
+  }
+
   render() {
     let { line } = this.props;
 
@@ -18,8 +26,8 @@ export default class CssStatement extends React.Component {
       );
     }
 
-    let commentIndex = line.indexOf('//');
     let commentLine = "";
+    let commentIndex = this.getCommentIndex(line);
     if (commentIndex != -1) {
       commentLine = (<span className="comment">{line.substr(commentIndex)}</span>);
       line = line.substr(0, commentIndex);

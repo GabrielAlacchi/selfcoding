@@ -9,8 +9,13 @@ import Engine from "./engine/Engine";
 let engine = new Engine();
 
 let testCode = `
+
+/**
+ * COMMENT TEST 
+ */
+ 
 .editor-pane {
-  font-family: Monaco, monospace; // Set font.
+  font-family: Monaco, monospace; /* Set font */.
   background: #484848;
   margin: 0;
   font-size: 14px;

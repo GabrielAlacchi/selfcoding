@@ -62,10 +62,6 @@ export default class EditorPane extends React.Component {
     }
   }
 
-  componentWillUpdate() {
-
-  }
-
   componentDidUpdate() {
     let node = ReactDOM.findDOMNode(this);
     node.scrollTop = node.scrollHeight;
@@ -73,11 +69,9 @@ export default class EditorPane extends React.Component {
 
   render() {
     return (
-      <div className="editor-pane">
-        <pre>
-          {this.state.components}
-        </pre>
-      </div>
+      <pre className="editor-pane">
+        {this.state.components}
+      </pre>
     );
   }
 }
