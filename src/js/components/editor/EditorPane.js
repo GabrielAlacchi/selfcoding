@@ -6,7 +6,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import CssLine from "./CssLine";
-import HtmlLine from "./HtmlLine";
 
 import codeStore from "../../stores/CodeStore";
 
