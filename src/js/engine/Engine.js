@@ -1,5 +1,5 @@
 
-import Animation from "./Animation"
+import Animation from './Animation';
 
 const DEFAULT_PAUSE = 2000;
 
@@ -13,7 +13,7 @@ export default class Engine {
 
   enqueueAnimation(animation, pause=DEFAULT_PAUSE) {
     if (!(animation instanceof Animation)) {
-      throw new TypeError("Engine.enqueueAnimation requires an Animation instance as input.");
+      throw new TypeError('Engine.enqueueAnimation requires an Animation instance as input.');
     }
 
     this.queue.push({

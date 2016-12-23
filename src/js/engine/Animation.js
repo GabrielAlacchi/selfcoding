@@ -4,7 +4,7 @@ export default class Animation {
   constructor(deltaT) {
 
     if (new.target === Animation) {
-      throw new TypeError("Cannot construct Animation class directly");
+      throw new TypeError('Cannot construct Animation class directly');
     }
 
     this.deltaT = deltaT;

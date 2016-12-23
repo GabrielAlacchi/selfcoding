@@ -1,6 +1,6 @@
 
-import Animation from "./Animation";
-import * as editorActions from "../actions/editorActions";
+import Animation from './Animation';
+import * as editorActions from '../actions/editorActions';
 
 export default class CssAnimation extends Animation {
 

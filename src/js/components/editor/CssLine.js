@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { PropTypes } from 'react';
 
 export default class CssLine extends React.Component {
 
@@ -26,7 +26,7 @@ export default class CssLine extends React.Component {
       );
     }
 
-    let commentLine = "";
+    let commentLine = '';
     let commentIndex = this.getCommentIndex(line);
     if (commentIndex != -1) {
       commentLine = (<span className="comment">{line.substr(commentIndex)}</span>);
@@ -49,3 +49,7 @@ export default class CssLine extends React.Component {
     }
   }
 }
+
+CssLine.propTypes = {
+  line: PropTypes.string.isRequired
+};

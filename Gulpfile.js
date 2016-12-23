@@ -1,17 +1,20 @@
+/*eslint-env node */
+
 // declarations, dependencies
 // ----------------------------------------------------------------------------
-var gulp = require('gulp');
-var imagemin = require('gulp-imagemin');
-var browserSync = require('browser-sync').create();
-var webpack = require('webpack-stream');
+const gulp = require('gulp');
+const imagemin = require('gulp-imagemin');
+const browserSync = require('browser-sync').create();
+const webpack = require('webpack-stream');
+const eslint = require('gulp-eslint');
 
 const isProduction = process.env.NODE_ENV == 'production';
 
 const SOURCE = {
-  js: "./src/js/**/*.js",
-  css: "./src/css/**/*.css",
-  html: "./src/*.html",
-  images: "./images/**/*"
+  js: './src/js/**/*.js',
+  css: './src/css/**/*.css',
+  html: './src/*.html',
+  images: './images/**/*'
 };
 
 //Plumber function to end a pipe if an error is caught
@@ -25,6 +28,8 @@ function onError(err) {
 // keep a count of the times a task refires
 // Gulp tasks
 // ----------------------------------------------------------------------------
+
+// Compiles javascript using webpack stream.
 gulp.task('bundle', function () {
   return gulp.src(SOURCE.js)
     .pipe(webpack( require('./webpack.config.js') ))
@@ -34,6 +39,7 @@ gulp.task('bundle', function () {
     .on('error', onError);
 });
 
+// Pipes html to build folder.
 gulp.task('html', function () {
   return gulp.src(SOURCE.html)
     .pipe(gulp.dest('./build'))
@@ -41,6 +47,7 @@ gulp.task('html', function () {
     .on('error', onError);
 });
 
+// Uses image min to pipe and minify images to the build folder.
 gulp.task('images', function () {
   return gulp.src(SOURCE.images)
     .pipe(imagemin())
@@ -50,7 +57,7 @@ gulp.task('images', function () {
     .on('error', onError);
 });
 
-//To use sass switch to using gulp-sass
+// Pipes CSS to build folder.
 gulp.task('style', function() {
   return gulp.src(SOURCE.css)
     .pipe(gulp.dest('./build/css'))
@@ -58,6 +65,24 @@ gulp.task('style', function() {
     .on('error', onError);
 });
 
+gulp.task('lint', function() {
+  // ESLint ignores files with "node_modules" paths.
+  // So, it's best to have gulp ignore the directory as well.
+  // Also, Be sure to return the stream from the task;
+  // Otherwise, the task may end before the stream has finished.
+  return gulp.src(SOURCE.js)
+    // eslint() attaches the lint output to the "eslint" property
+    // of the file object so it can be used by other modules.
+    .pipe(eslint())
+    // eslint.format() outputs the lint results to the console.
+    // Alternatively use eslint.formatEach() (see Docs).
+    .pipe(eslint.format())
+    // To have the process exit with an error code (1) on
+    // lint error, return the stream and pipe to failAfterError last.
+    .pipe(eslint.failAfterError());
+});
+
+// Watch task.
 gulp.task('watch', function () {
 
   if (isProduction)
@@ -67,14 +92,14 @@ gulp.task('watch', function () {
     proxy: 'localhost:3000'
   });
 
-  gulp.watch([SOURCE.js], ['bundle']);
+  gulp.watch([SOURCE.js], ['lint', 'bundle']);
   gulp.watch([SOURCE.images], ['images']);
   gulp.watch([SOURCE.css], ['style']);
   gulp.watch([SOURCE.html], ['html']);
 
 });
 
-gulp.task('build', ['bundle', 'html', 'images', 'style']);
+gulp.task('build', ['lint', 'bundle', 'html', 'images', 'style']);
 
 // When running 'gulp' on the terminal this task will fire.
 // It will start watching for changes in every .js file.

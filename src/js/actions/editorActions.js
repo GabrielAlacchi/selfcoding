@@ -1,8 +1,6 @@
 
-import dispatcher from "./dispatcher";
+import dispatcher from './dispatcher';
 
 export function addNewCssChar(payload) {
   dispatcher.dispatch({type: 'NEW_CSS', payload});
 }
-
-window.addNewCssChar = addNewCssChar;
