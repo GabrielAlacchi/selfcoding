@@ -59,8 +59,11 @@ export default class EditorPane extends React.Component {
 
   componentWillUnmount() {
     if (this.props.css) {
-      codeStore.removeListener('new_css_line', this.handleNewCssLine);
-      codeStore.removeListener('css_update', this.handleCssUpdate);
+      codeStore.removeListener('new_css_line', this.handleNewLine);
+      codeStore.removeListener('css_update', this.handleCodeUpdate);
+    } else {
+      codeStore.removeListener('new_html_line', this.handleNewLine);
+      codeStore.removeListener('html_update', this.handleCodeUpdate);
     }
   }
 

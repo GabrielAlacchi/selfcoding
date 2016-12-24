@@ -12,7 +12,7 @@ export function attachCssListener(styleId) {
 
 }
 
-export function attachListener(language, mountId) {
+export function attachMount(language, mountId) {
 
   let element = document.getElementById(mountId);
   if (element) {

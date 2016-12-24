@@ -1,7 +1,18 @@
 
-html, body, #app {
-  height: 90%;
+html, body, #app, #page {
+  height: 97%;
   background: #666666;
+}
+
+#app {
+  width: 45%;
+  float: left;
+}
+
+#page {
+  width: 54%;
+  float: right;
+  background: white;
 }
 
 .react-tabs {
@@ -64,18 +75,13 @@ html, body, #app {
   font-size: 14px;
   border: 1px solid #aaa;
   color: white;
-}
-
-.editor-pane {
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box;    /* Firefox, other Gecko */
   box-sizing: border-box;
   overflow: auto;
-  height: 100%;
-  width: 100%;
   border-radius: 1px;
-  margin: 0;
-  padding: 10px 10px 20px;
+  padding: 10px 10px 10px;
+  height: calc(100% - 29px);
   white-space: pre-wrap;
   outline: 0;
 }
