@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import CssAnimation from './engine/CssAnimation';
+import CodeAnimation from './engine/CodeAnimation';
 import Engine from './engine/Engine';
 
 import Editor from './components/Editor';
@@ -16,7 +16,7 @@ ReactDOM.render(<Editor/>, app);
 
 pageUpdate.attachCssListener('styles');
 
-let anim = new CssAnimation(`
+let anim = new CodeAnimation(`
 .react-tabs {
   height: 100%;
   font-size: 17px;
@@ -109,7 +109,7 @@ let anim = new CssAnimation(`
 .selector {
   color: #ffd541;
 }
-`, 40);
+`, 'css', 40);
 
 engine.enqueueAnimation(anim, 100);
 engine.run();
