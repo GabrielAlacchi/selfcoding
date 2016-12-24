@@ -96,3 +96,15 @@ html, body, #app {
 .selector {
   color: #ffd541;
 }
+
+.html-syntax-tag {
+  color: #ffd541;
+}
+
+.html-syntax-attr-name {
+  color: #add8e6;
+}
+
+.html-syntax-attr-value {
+  color: #00AA00;
+}

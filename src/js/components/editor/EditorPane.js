@@ -5,6 +5,7 @@
 import React, { PropTypes } from 'react';
 
 import CssLine from './CssLine';
+import HtmlLine from './HtmlLine';
 
 import codeStore from '../../stores/CodeStore';
 
@@ -22,7 +23,7 @@ export default class EditorPane extends React.Component {
       };
     } else {
       this.state = {
-        components: []
+        components: [<HtmlLine line={'<div id="test">'} />, <HtmlLine line={'  <div id="app" class="broski">lol<div><span>jajajaja</span></div></div>'}/>, <HtmlLine line={'</div>'} />]
       };
     }
 
