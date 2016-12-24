@@ -11,3 +11,22 @@ export function attachCssListener(styleId) {
   });
 
 }
+
+export function attachListener(language, mountId) {
+
+  let element = document.getElementById(mountId);
+  if (element) {
+
+    codeStore.on('new_' + language + '_line', () => {
+
+      if (language == 'css') {
+        element.textContent = codeStore.getCssBody();
+      } else {
+        element.innerHTML = codeStore.getHtmlBody();
+      }
+
+    });
+
+  }
+
+}

@@ -14,9 +14,21 @@ let engine = new Engine();
 const app = document.getElementById('app');
 ReactDOM.render(<Editor/>, app);
 
-pageUpdate.attachCssListener('styles');
+pageUpdate.attachListener('css', 'styles');
+pageUpdate.attachListener('html', 'page');
 
 let anim = new CodeAnimation(`
+<div>
+  <div>brooooo</div>
+</div>`, 'html', 20);
+
+let anim2 = new CodeAnimation(`
+
+html, body, #app {
+  height: 90%;
+  background: #666666;
+}
+
 .react-tabs {
   height: 100%;
   font-size: 17px;
@@ -109,7 +121,19 @@ let anim = new CodeAnimation(`
 .selector {
   color: #ffd541;
 }
-`, 'css', 40);
+
+.html-syntax-tag {
+  color: #ffd541;
+}
+
+.html-syntax-attr-name {
+  color: #add8e6;
+}
+
+.html-syntax-attr-value {
+  color: #00AA00;
+}`, 'css', 20);
 
 engine.enqueueAnimation(anim, 100);
+engine.enqueueAnimation(anim2, 1000);
 engine.run();
