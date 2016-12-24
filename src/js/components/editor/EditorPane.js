@@ -14,42 +14,45 @@ export default class EditorPane extends React.Component {
   constructor(props) {
     super(props);
 
-    if (props && props.css) {
-      let css = codeStore.getCssBody() + codeStore.getCurrentCssLine();
-      let cssComponents = css.split('\n').map((line) => <CssLine line={line} />);
+    this.LineComponent = props.css ? CssLine : HtmlLine;
+    this.getCodeBody = props.css ? codeStore.getCssBody.bind(codeStore) : codeStore.getHtmlBody.bind(codeStore);
+    this.getCodeLine = props.css ? codeStore.getCurrentCssLine.bind(codeStore) : codeStore.getCurrentHtmlLine.bind(codeStore);
 
-      this.state = {
-        components: cssComponents
-      };
-    } else {
-      this.state = {
-        components: [<HtmlLine line={'<div id="test">'} />, <HtmlLine line={'  <div id="app" class="broski">lol<div><span>jajajaja</span></div></div>'}/>, <HtmlLine line={'</div>'} />]
-      };
-    }
+    let { LineComponent, getCodeBody, getCodeLine } = this;
+
+    let code = getCodeBody() + getCodeLine();
+    let components = code.split('\n').map((line) => <LineComponent line={line}/>);
+
+    this.state = {
+      components: components
+    };
 
   }
 
   componentWillMount() {
 
+    let { LineComponent, getCodeLine} = this;
+
+    this.handleNewLine = () => {
+      let line = getCodeLine();
+      let newState = {...this.state};
+      newState.components.push(<LineComponent line={line} />);
+    };
+
+    this.handleCodeUpdate = () => {
+      let line = getCodeLine();
+      let newState = {...this.state};
+      newState.components[newState.components.length - 1] =
+        (<LineComponent line={line}/>);
+      this.setState(newState);
+    };
+
     if (this.props.css){
-      this.handleNewCssLine = () => {
-
-        let cssLine = codeStore.getCurrentCssLine();
-        let newState = {...this.state};
-        newState.components.push(<CssLine line={cssLine} />);
-
-      };
-      this.handleCssUpdate = () => {
-
-        let cssLine = codeStore.getCurrentCssLine();
-        let newState = {...this.state};
-        newState.components[newState.components.length - 1] =
-          (<CssLine line={cssLine} />);
-        this.setState(newState);
-
-      };
-      codeStore.on('new_css_line', this.handleNewCssLine);
-      codeStore.on('css_update', this.handleCssUpdate);
+      codeStore.on('new_css_line', this.handleNewLine);
+      codeStore.on('css_update', this.handleCodeUpdate);
+    } else {
+      codeStore.on('new_html_line', this.handleNewLine);
+      codeStore.on('html_update', this.handleCodeUpdate);
     }
 
   }

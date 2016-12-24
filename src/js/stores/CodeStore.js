@@ -11,6 +11,9 @@ class CodeStore extends EventEmitter {
     super();
     this.css = '';
     this.currentCssLine = '';
+
+    this.html = '';
+    this.currentHtmlLine = '';
   }
 
   getCssBody() {
@@ -19,6 +22,14 @@ class CodeStore extends EventEmitter {
 
   getCurrentCssLine() {
     return this.currentCssLine;
+  }
+
+  getHtmlBody() {
+    return this.html;
+  }
+
+  getCurrentHtmlLine() {
+    return this.currentHtmlLine;
   }
 
   handleAction(action) {
@@ -34,6 +45,17 @@ class CodeStore extends EventEmitter {
         this.emit('css_update');
       }
 
+    } else if (action.type == 'NEW_HTML') {
+
+      this.currentHtmlLine += action.payload;
+      if (action.payload == '\n') {
+        this.html += this.currentHtmlLine;
+        this.currentHtmlLine = '';
+
+        this.emit('new_html_line');
+      } else {
+        this.emit('html_update');
+      }
     }
   }
 

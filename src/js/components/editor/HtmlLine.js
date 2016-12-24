@@ -97,6 +97,10 @@ export default class HtmlLine extends React.Component {
 
     }
 
+    if (line != '') {
+      spans.push(<span>{line}</span>);
+    }
+
     return spans;
 
   }
