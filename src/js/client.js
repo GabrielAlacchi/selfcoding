@@ -1,4 +1,6 @@
 
+/* global require */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -9,6 +11,8 @@ import Engine from './engine/Engine';
 import Editor from './components/Editor';
 
 import * as pageUpdate from './pageUpdate';
+
+require('../scss/style.scss');
 
 let engine = new Engine();
 

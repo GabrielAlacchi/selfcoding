@@ -24,7 +24,10 @@ coverage
 .lock-wscript
 
 # Transpiled Javascript output
-build
+build/client.min.js
+
+# Processed scss output
+build/style.css
 
 # Dependency directories
 node_modules
