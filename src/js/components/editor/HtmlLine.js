@@ -108,10 +108,17 @@ export default class HtmlLine extends React.Component {
   render() {
 
     let { line } = this.props;
+    let commentIndex = line.indexOf('<!--');
+    let commentSpan = null;
+    if (commentIndex != -1) {
+      commentSpan = (<span className="comment">{line.substr(commentIndex)}</span>);
+      line = line.substr(0, commentIndex);
+    }
+
     let spans = this.findAllTags(line);
 
     return (
-      <span>{spans}{'\n'}</span>
+      <span>{spans}{commentSpan}{'\n'}</span>
     );
 
   }

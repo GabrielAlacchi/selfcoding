@@ -1,6 +1,10 @@
 
 /* global require */
 
+// Import the main scss bundle (not inline since it will be whisked away by ExtractTextPlugin)
+require('../scss/style.scss');
+
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -12,8 +16,6 @@ import Editor from './components/Editor';
 
 import * as pageUpdate from './pageUpdate';
 
-require('../scss/style.scss');
-
 let engine = new Engine();
 
 const app = document.getElementById('app');
@@ -24,6 +26,7 @@ pageUpdate.attachMount('html', 'page');
 
 let anim = new CodeAnimation(`
 <div>
+  <!-- TEST -->
   <img src="/img/favicon.ico">
 </div>`, 'html', 20);
 
