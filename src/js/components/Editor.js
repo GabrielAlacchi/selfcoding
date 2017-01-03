@@ -16,13 +16,12 @@ export default class Editor extends React.Component {
           <Tab>index.html</Tab>
         </TabList>
         <TabPanel>
-          <EditorPane css={true} />
+          <EditorPane css />
         </TabPanel>
         <TabPanel>
-          <EditorPane css={false} />
+          <EditorPane />
         </TabPanel>
       </Tabs>
     );
   }
-
 }

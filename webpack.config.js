@@ -1,16 +1,17 @@
-/*eslint-env node*/
-var debug = process.env.NODE_ENV !== 'production';
-var webpack = require('webpack');
-var path = require('path');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+/* eslint-env node */
 
-var pluginsProd = debug ? [] : [
+const debug = process.env.NODE_ENV !== 'production';
+const webpack = require('webpack');
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const pluginsProd = debug ? [] : [
   new webpack.optimize.DedupePlugin(),
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
 ];
 
-var plugins = [new ExtractTextPlugin('./style.css')].concat(pluginsProd);
+const plugins = [new ExtractTextPlugin('./style.css')].concat(pluginsProd);
 
 module.exports = {
   context: path.join(__dirname, 'src'),
@@ -19,7 +20,7 @@ module.exports = {
   module: {
     preLoaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         loader: 'eslint-loader',
         exclude: /(node_modules)/
       }
@@ -28,7 +29,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
-        loader: 'babel-loader',
+        loader: 'babel-loader'
       },
       {
         test: /\.scss$/,
@@ -37,7 +38,7 @@ module.exports = {
     ]
   },
   output: {
-    path: __dirname + '/build/',
+    path: path.join(__dirname, '/build/'),
     filename: 'client.min.js'
   },
   plugins

@@ -15,46 +15,47 @@ export default class EditorPane extends React.Component {
     super(props);
 
     this.LineComponent = props.css ? CssLine : HtmlLine;
-    this.getCodeBody = props.css ? codeStore.getCssBody.bind(codeStore) : codeStore.getHtmlBody.bind(codeStore);
-    this.getCodeLine = props.css ? codeStore.getCurrentCssLine.bind(codeStore) : codeStore.getCurrentHtmlLine.bind(codeStore);
+    this.getCodeBody = props.css ?
+      codeStore.getCssBody.bind(codeStore) : codeStore.getHtmlBody.bind(codeStore);
+    this.getCodeLine = props.css ?
+      codeStore.getCurrentCssLine.bind(codeStore) : codeStore.getCurrentHtmlLine.bind(codeStore);
 
-    let { LineComponent, getCodeBody, getCodeLine } = this;
+    const { LineComponent, getCodeBody, getCodeLine } = this;
 
-    let code = getCodeBody() + getCodeLine();
-    let components = code.split('\n').map((line) => <LineComponent line={line}/>);
+    const code = getCodeBody() + getCodeLine();
+    const components = code.split('\n').map(line => <LineComponent line={line} />);
 
-    this.state = {
-      components: components
-    };
-
+    this.state = { components };
   }
 
   componentWillMount() {
-
-    let { LineComponent, getCodeLine} = this;
+    const { LineComponent, getCodeLine } = this;
 
     this.handleNewLine = () => {
-      let line = getCodeLine();
-      let newState = {...this.state};
+      const line = getCodeLine();
+      const newState = { ...this.state };
       newState.components.push(<LineComponent line={line} />);
     };
 
     this.handleCodeUpdate = () => {
-      let line = getCodeLine();
-      let newState = {...this.state};
+      const line = getCodeLine();
+      const newState = { ...this.state };
       newState.components[newState.components.length - 1] =
-        (<LineComponent line={line}/>);
+        (<LineComponent line={line} />);
       this.setState(newState);
     };
 
-    if (this.props.css){
+    if (this.props.css) {
       codeStore.on('new_css_line', this.handleNewLine);
       codeStore.on('css_update', this.handleCodeUpdate);
     } else {
       codeStore.on('new_html_line', this.handleNewLine);
       codeStore.on('html_update', this.handleCodeUpdate);
     }
+  }
 
+  componentDidUpdate() {
+    this.pretag.scrollTop = this.pretag.scrollHeight;
   }
 
   componentWillUnmount() {
@@ -67,15 +68,10 @@ export default class EditorPane extends React.Component {
     }
   }
 
-  componentDidUpdate() {
-    // let node = ReactDOM.findDOMNode(this);
-    // node.scrollTop = node.scrollHeight;
-    this.refs.pretag.scrollTop = this.refs.pretag.scrollHeight;
-  }
-
   render() {
     return (
-      <pre ref="pretag" className="editor-pane">
+      // Passes the component as a ref to instance variable pretag.
+      <pre ref={(component) => { this.pretag = component; }} className="editor-pane">
         {this.state.components}
       </pre>
     );
@@ -83,6 +79,5 @@ export default class EditorPane extends React.Component {
 }
 
 EditorPane.propTypes = {
-  css: PropTypes.bool.isRequired,
-  scrollTop: PropTypes.number
+  css: PropTypes.bool.isRequired
 };

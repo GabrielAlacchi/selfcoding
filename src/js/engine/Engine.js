@@ -11,7 +11,7 @@ export default class Engine {
     this.tick = this.tickAnimation.bind(this);
   }
 
-  enqueueAnimation(animation, pause=DEFAULT_PAUSE) {
+  enqueueAnimation(animation, pause = DEFAULT_PAUSE) {
     if (!(animation instanceof Animation)) {
       throw new TypeError('Engine.enqueueAnimation requires an Animation instance as input.');
     }
@@ -22,22 +22,19 @@ export default class Engine {
   }
 
   tickAnimation() {
-    let { animation } = this.currentAnimation;
+    const { animation } = this.currentAnimation;
 
     if (!animation.done()) {
       animation.tick();
       setTimeout(this.tick, animation.getDeltaT());
-    }
-    else {
+    } else {
       this.currentAnimation = this.queue.shift();
 
       if (this.currentAnimation) {
         this.currentAnimation.animation.mount();
         setTimeout(this.tick, this.currentAnimation.pause);
       }
-
     }
-
   }
 
   run() {
@@ -47,7 +44,5 @@ export default class Engine {
     if (this.currentAnimation) {
       setTimeout(this.tick, this.currentAnimation.pause);
     }
-
   }
-
 }

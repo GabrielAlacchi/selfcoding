@@ -7,17 +7,15 @@ export default class CodeAnimation extends Animation {
   constructor(code, lang, deltaT) {
     super(deltaT);
 
-    let css = lang == 'css';
+    const css = lang === 'css';
     this.code = code;
     this.addNewChar = css ? editorActions.addNewCssChar : editorActions.addNewHtmlChar;
 
     this.codeIndex = 0;
     this.pauseChanged = false;
-
   }
 
   tick() {
-
     if (this.codeIndex >= this.code.length) {
       // To avoid any unwanted errors.
       return;
@@ -30,17 +28,17 @@ export default class CodeAnimation extends Animation {
       this.pauseChanged = false;
     }
 
-    let char = this.code[this.codeIndex++];
-    if (char == '\n') {
+    const char = this.code[this.codeIndex++];
+    if (char === '\n') {
       // Increase the pause by a third.
       super.setDeltaT(super.getDeltaT() * 3);
       this.pauseChanged = true;
     }
+
     this.addNewChar(char);
   }
 
   done() {
     return this.codeIndex >= this.code.length;
   }
-
 }

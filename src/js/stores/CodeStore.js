@@ -33,10 +33,9 @@ class CodeStore extends EventEmitter {
   }
 
   handleAction(action) {
-    if (action.type == 'NEW_CSS') {
-
+    if (action.type === 'NEW_CSS') {
       this.currentCssLine += action.payload;
-      if (action.payload == '\n') {
+      if (action.payload === '\n') {
         this.css += this.currentCssLine;
         this.currentCssLine = '';
 
@@ -44,11 +43,9 @@ class CodeStore extends EventEmitter {
       } else {
         this.emit('css_update');
       }
-
-    } else if (action.type == 'NEW_HTML') {
-
+    } else if (action.type === 'NEW_HTML') {
       this.currentHtmlLine += action.payload;
-      if (action.payload == '\n') {
+      if (action.payload === '\n') {
         this.html += this.currentHtmlLine;
         this.currentHtmlLine = '';
 

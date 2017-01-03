@@ -3,17 +3,17 @@ import React, { PropTypes } from 'react';
 
 export default class HtmlLine extends React.Component {
 
-  scanTag(tag) {
-    let firstSpace = tag.indexOf(' ');
-    let openTag = firstSpace != -1 ? tag.substr(0, firstSpace) : tag;
-    let tagSpan = (<span className="html-syntax-tag">{openTag}</span>);
+  static scanTag(tag) {
+    const firstSpace = tag.indexOf(' ');
+    const openTag = firstSpace !== -1 ? tag.substr(0, firstSpace) : tag;
+    const tagSpan = (<span className="html-syntax-tag">{openTag}</span>);
 
-    if (firstSpace == -1) {
+    if (firstSpace === -1) {
       return tagSpan;
     }
 
-    let rest = tag.substr(firstSpace);
-    let spans = [tagSpan];
+    const rest = tag.substr(firstSpace);
+    const spans = [tagSpan];
     let token = '';
     let quoteCount = 0;
 
@@ -21,32 +21,30 @@ export default class HtmlLine extends React.Component {
 
     let closingSpan;
     for (let i = 0; i < rest.length; i++) {
-      let char = rest[i];
+      const char = rest[i];
 
-      if (char == '>') {
+      if (char === '>') {
         closingSpan = (<span className="html-syntax-tag">{char}</span>);
         break;
       }
 
       token += char;
-      if (char == '=' && parseName) {
+      if (char === '=' && parseName) {
         spans.push((<span className="html-syntax-attr-name">{token}</span>));
         token = '';
         parseName = false;
       } else {
-        if (char == '"') {
-          quoteCount++;
+        if (char === '"') {
+          quoteCount += 1;
         }
 
         // We've encountered an even number of quotes (the value string is terminated)
-        if (!parseName && quoteCount % 2 == 0) {
+        if (!parseName && quoteCount % 2 === 0) {
           spans.push((<span className="html-syntax-attr-value">{token}</span>));
           token = '';
           parseName = true;
         }
-
       }
-
     }
 
     // Check token length for remaining bits of the tag string
@@ -62,31 +60,29 @@ export default class HtmlLine extends React.Component {
     }
 
     return (<span>{spans}</span>);
-
   }
 
-  findAllTags(line) {
+  static findAllTags(htmlLine) {
+    let line = htmlLine;
     let left = line.indexOf('<');
     let right = line.indexOf('>');
-    let spans = [];
+    const spans = [];
 
-    while (left != -1) {
-
+    while (left !== -1) {
       let substr;
-      let tagSpan;
-      let leftStr = line.substr(0, left);
+      const leftStr = line.substr(0, left);
 
-      if (right != -1) {
-        substr = line.substr(left, right - left + 1);
+      if (right !== -1) {
+        substr = line.substr(left, (right - left) + 1);
       } else {
         substr = line.substr(left);
       }
 
-      tagSpan = this.scanTag(substr);
+      const tagSpan = this.scanTag(substr);
 
       spans.push(<span>{leftStr}{tagSpan}</span>);
 
-      if (right == -1) {
+      if (right === -1) {
         line = '';
       } else {
         line = line.substr(right + 1);
@@ -94,35 +90,30 @@ export default class HtmlLine extends React.Component {
 
       left = line.indexOf('<');
       right = line.indexOf('>');
-
     }
 
-    if (line != '') {
+    if (line !== '') {
       spans.push(<span>{line}</span>);
     }
 
     return spans;
-
   }
 
   render() {
-
     let { line } = this.props;
-    let commentIndex = line.indexOf('<!--');
+    const commentIndex = line.indexOf('<!--');
     let commentSpan = null;
-    if (commentIndex != -1) {
+    if (commentIndex !== -1) {
       commentSpan = (<span className="comment">{line.substr(commentIndex)}</span>);
       line = line.substr(0, commentIndex);
     }
 
-    let spans = this.findAllTags(line);
+    const spans = this.findAllTags(line);
 
     return (
       <span>{spans}{commentSpan}{'\n'}</span>
     );
-
   }
-
 }
 
 HtmlLine.propTypes = {

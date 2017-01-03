@@ -1,10 +1,4 @@
 
-/* global require */
-
-// Import the main scss bundle (not inline since it will be whisked away by ExtractTextPlugin)
-require('../scss/style.scss');
-
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -16,26 +10,31 @@ import Editor from './components/Editor';
 
 import * as pageUpdate from './pageUpdate';
 
-let engine = new Engine();
+/* global require */
+
+// Import the main scss bundle (not inline since it will be whisked away by ExtractTextPlugin)
+require('../scss/style.scss');
+
+const engine = new Engine();
 
 const app = document.getElementById('app');
-ReactDOM.render(<Editor/>, app);
+ReactDOM.render(<Editor />, app);
 
 pageUpdate.attachMount('css', 'styles');
 pageUpdate.attachMount('html', 'page');
 
-let anim = new CodeAnimation(`
+const anim = new CodeAnimation(`
 <div>
   <!-- TEST -->
   <img src="/img/favicon.ico">
 </div>`, 'html', 20);
 
-let anim2 = new Action(() => {
-  let elements = document.getElementsByClassName('ReactTabs__Tab');
+const anim2 = new Action(() => {
+  const elements = document.getElementsByClassName('ReactTabs__Tab');
   elements[0].click();
 });
 
-let anim3 = new CodeAnimation(`
+const anim3 = new CodeAnimation(`
 
 /*
  * HI

@@ -3,7 +3,7 @@
         "browser": true,
         "es6": true
     },
-    "extends": [ "eslint:recommended", "plugin:react/recommended" ],
+    "extends": [ "airbnb" ],
     "parserOptions": {
         "ecmaFeatures": {
             "experimentalObjectRestSpread": true,
@@ -39,6 +39,15 @@
         "semi": [
             "error",
             "always"
-        ]
+        ],
+        "comma-dangle": [
+            "error",
+            "never"
+        ],
+        "react/jsx-filename-extension": [ 0 ],
+        "import/no-extraneous-dependencies": [ 0 ],
+        "no-plusplus": [ 0 ],
+        "class-methods-use-this": [ 0 ],
+        "react/prefer-stateless-function": [ 0 ]
     }
 }
